@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Data</title>
+</head>
+<body>
+  <h1>Student Information</h1>  
+  <table id="studentTable" border="2px" cellspacing="2px" cellpadding="10px">
+    <thead>
+      <tr>
+        <th>Serial Number</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Upload CV</th>
+        <th>Project Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+  <script>
+    const students = [
+      {serial: 1, name: "Darshin",image:'',cv:'',project:'#'},
+      {serial: 2, name: "Rakesh",image:'',cv:'',project:'#'},
+      {serial:3,name:"John Doe", image:'',cv:"",project:"#"},
+    ]
+    function addRows() {
+      const tableBody = document.querySelector('#studentTable tbody');
+      students.forEach(student => {
+        const row = document.createElement('tr');
+
+        const serial = document.createElement('td');
+        serial.textContent = student.serial;
+        row.appendChild(serial);
+
+        const name = document.createElement('td');
+        name.textContent = student.name;
+        row.appendChild(name);
+
+        const image = document.createElement('td');
+        const img = document.createElement('img');
+        img.src = student.image;
+        img.alt = student.name;
+        img.width = 50; 
+        image.appendChild(img);
+        row.appendChild(image);
+
+        const cv = document.createElement('td');
+        const uploadButton = document.createElement('button');
+        uploadButton.textContent = 'Upload CV';
+        uploadButton.onclick = () => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = '.pdf';
+          input.onchange = (event) => {
+            const file = event.target.files[0];
+            if (file) {
+              alert(`Uploaded: ${file.name}`);
+            }
+          };
+          input.click();
+        };
+        cv.appendChild(uploadButton);
+        row.appendChild(cv);
+
+        const project = document.createElement('td');
+        const projectLink = document.createElement('a');
+        projectLink.href = student.project;
+        projectLink.textContent = 'View Project';
+        projectLink.target = '_blank';
+        project.appendChild(projectLink);
+        row.appendChild(project);
+
+        tableBody.appendChild(row);
+      });
+    }
+
+    window.onload = addRows;
+
+  </script>
+</body>
+</html>
